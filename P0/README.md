@@ -7,3 +7,5 @@
 ************************
 
 Otra modificación
+
+![](Ejercicio2-img1.gif)
