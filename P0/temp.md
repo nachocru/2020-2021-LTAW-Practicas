@@ -50,3 +50,13 @@ es muy útil
 [Markdown](https://es.wikipedia.org/wiki/Markdown)
 
 Más información en la sección de [Enlaces](#Enlaces)
+
+[Enlace](#Resaltado-de-texto)
+
+# Imágenes
+
+![](Logo-urjc.png)
+
+![](https://upload.wikimedia.org/wikipedia/commons/2/2f/CC_BY-SA_3.0.png)
+
+
