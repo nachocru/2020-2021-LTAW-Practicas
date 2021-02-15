@@ -26,3 +26,16 @@ Esto ya si sale en la línea de abajo
 2. Practicar
 3. Practicar más
 4. Y seguir practicando...
+
+# Resaltado de texto
+
+Este *texto* está en *cursiva*. 
+Este **texto** está en **negrita**.
+
+# Probando código
+```python
+#-- Comentario en python
+hola como estás
+a = 2
+print(f"la variable a vale {a}")
+```
