@@ -39,3 +39,14 @@ hola como estás
 a = 2
 print(f"la variable a vale {a}")
 ```
+
+Esta instrucción `print(f"{a}  ")` 
+es muy útil
+
+# Enlaces
+
+## Enlaces Externos
+
+[Markdown](https://es.wikipedia.org/wiki/Markdown)
+
+Más información en la sección de [Enlaces](#Enlaces)
