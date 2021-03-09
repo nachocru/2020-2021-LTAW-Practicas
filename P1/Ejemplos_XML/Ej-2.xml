@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Defino el lenguaje que quiero
+(Gramática)
+Un lenguaje que solo tiene la marca raíz
+y dentro de ella solo puedo meter cadenas de texto -->
+
+<!DOCTYPE tienda SYSTEM "Ej.dtd">
+<!-- Ejemplo de uso del lenguaje -->
+<tienda>
+    <producto>
+        <nombre>Placa Alhambra 2</nombre>
+        <descripcion>Pllaca del tipo FPGA ice...</descripcion>
+        <stock>3</stock>
+    </producto>
+    <producto>
+        <nombre>Placa Icestick</nombre>
+        <descripcion>Otra placa</descripcion>
+        <stock>10</stock>
+    </producto>
+</tienda>

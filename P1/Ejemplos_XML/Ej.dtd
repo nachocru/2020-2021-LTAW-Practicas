@@ -1,0 +1,5 @@
+<!ELEMENT tienda (producto+)>
+    <!ELEMENT producto (nombre, descripcion?, stock)>
+    <!ELEMENT nombre (#PCDATA)>
+    <!ELEMENT descripcion (#PCDATA)>
+    <!ELEMENT stock (#PCDATA)>
