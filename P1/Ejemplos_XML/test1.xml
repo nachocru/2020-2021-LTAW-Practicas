@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE pirulo>
+<!-- Esto es un comentario en una línea -->
+<!-- varias lineas
+otra línea
+otra más -->
+
+<pirulo>
+    <mengulo attr1="mi_atributo">
+        Un mengulo
+    </mengulo>
+    <mengulo>
+        Esto es otro mengulo What??
+    </mengulo>
+</pirulo>
