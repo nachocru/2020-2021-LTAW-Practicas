@@ -4,8 +4,25 @@ body {
 }
 
 .content {
-    background-color: white;
+    background-color: #99ebff;
     height: 100%;
-    width: auto;
+    width: 80%;
     margin: auto;
+}
+
+.home_img {
+    margin: auto;
+    padding: 40px;
+    display: flex;
+    width: 50%;
+}
+
+.product {
+    margin: 20px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.product_img {
+    width: 30%;
 }
