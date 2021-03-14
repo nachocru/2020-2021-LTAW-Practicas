@@ -1,0 +1,11 @@
+body {
+    background-image: url("fondo.jpg");
+    background-size: cover;
+}
+
+.content {
+    background-color: white;
+    height: 100%;
+    width: auto;
+    margin: auto;
+}
