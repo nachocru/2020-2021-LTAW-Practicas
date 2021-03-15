@@ -17,6 +17,11 @@ body {
     width: 50%;
 }
 
+.home_img2 {
+    background-color: #99ebff;
+    width: 20%;
+}
+
 .product {
     margin: 20px;
     background-color: white;
