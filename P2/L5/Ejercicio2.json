@@ -1,0 +1,53 @@
+[{
+    "users": {
+        "ID_1": {
+            "name": "nachocru",
+            "real_name": "Nacho",
+            "email": "nachocruz@gmail.com"
+        },
+        "ID_2": {
+            "name": "root",
+            "real_name": "Root",
+            "email": "root@gmail.com"
+        }
+    },
+    "products": {
+        "1": {
+            "name": "Zombicide",
+            "price": 80.5,
+            "description": "Un juego de zombies",
+            "stock": 3
+        },
+        "2": {
+            "name": "Catán",
+            "price": 40,
+            "description": "Un juego de agricultura",
+            "stock": 5
+        },
+        "3": {
+            "name": "Virus",
+            "price": 15,
+            "description": "Un juego de pandemias",
+            "stock": 10
+        }
+
+    },
+    "orders": {
+        "1": {
+            "user": "nachocru",
+            "direction": "Madrid",
+            "card": 123456789,
+            "products": {
+                "1": {
+                    "name": "Zombicide",
+                    "quantity": 1
+                },
+                "2": {
+                    "name": "Virus",
+                    "quantity": 2
+                }
+            }
+        }
+
+    }
+}]
