@@ -10,22 +10,51 @@ body {
     margin: auto;
 }
 
+.header {
+    display: inline-flex;
+    justify-content: center;
+}
+
 .home_img {
-    margin: auto;
-    padding: 40px;
     display: flex;
     width: 50%;
+    margin: 20px;
 }
 
 .home_img2 {
     background-color: #99ebff;
-    width: 20%;
+    width: 10%;
+    margin: 20px;
 }
 
 .product {
     margin: 20px;
     background-color: white;
     border-radius: 20px;
+    text-align: center;
+}
+
+span {
+    display: flex;
+}
+
+.card {
+    /* Add shadows to create the "card" effect */
+    transition: 0.3s;
+    width: 30%;
+    margin: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap;
+}
+
+
+/* On mouse-over, add a deeper shadow */
+
+
+/* Add some padding inside the card container */
+
+.container {
+    padding: 2px 16px;
 }
 
 .product_img {
