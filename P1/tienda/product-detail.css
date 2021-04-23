@@ -1,0 +1,22 @@
+body {
+    background-image: url("fondo.jpg");
+    background-size: cover;
+}
+
+.content {
+    background-color: #99ebff;
+    height: 100%;
+    width: 80%;
+    margin: auto;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.product {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
+    height: 100%;
+}
