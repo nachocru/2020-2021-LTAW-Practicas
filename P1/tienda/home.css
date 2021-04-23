@@ -34,29 +34,86 @@ body {
     text-align: center;
 }
 
-span {
+.product_img {
+    width: 90%;
+}
+
+.container {
     display: flex;
 }
 
-.card {
-    /* Add shadows to create the "card" effect */
-    transition: 0.3s;
-    width: 30%;
-    margin: 0 !important;
-    display: flex !important;
-    flex-wrap: wrap;
+.viewport {
+    margin: 10px auto 0;
 }
 
-
-/* On mouse-over, add a deeper shadow */
-
-
-/* Add some padding inside the card container */
-
-.container {
-    padding: 2px 16px;
+.flip-card {
+    display: block;
+    position: relative;
+    z-index: 1000;
+    width: 250px;
+    height: 330px;
+    font-weight: bold;
+    margin: 10px;
 }
 
-.product_img {
-    width: 30%;
+.flip-card .card-front,
+.flip-card .card-back {
+    -moz-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-transition: -moz-transform 500ms;
+    -o-transition: -o-transform 500ms;
+    -webkit-transition: -webkit-transform 500ms;
+    transition: transform 500ms;
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.flip-card .card-front {
+    -moz-transform: perspective(300) rotateY(0);
+    -webkit-transform: perspective(300) rotateY(0);
+    transform: perspective(300) rotateY(0);
+    z-index: 900;
+    box-shadow: 0 0 20px rgba(115, 113, 113, 0.94) inset;
+    box-sizing: border-box;
+    background-color: #fff;
+    *zoom: 1;
+    filter: progid: DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF499BEA', endColorstr='#FF207CE5');
+    background-size: 100%;
+}
+
+.flip-card .card-back {
+    -moz-transform: rotateY(-180deg);
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+    z-index: 800;
+}
+
+.flip-card:hover .card-front {
+    -moz-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    -moz-transform: perspective(300) rotateY(180deg);
+    -webkit-transform: perspective(300) rotateY(180deg);
+    transform: perspective(300) rotateY(180deg);
+}
+
+.flip-card:hover .card-back {
+    z-index: 950;
+    transform: rotateY(0deg);
+    transform: perspective(300) rotateY(0deg);
+    box-shadow: 0 0 20px rgba(115, 113, 113, 0.94) inset;
+    background-color: #fff;
+    *zoom: 1;
+    filter: progid: DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF478CE0', endColorstr='#FF0263DB');
+    background-size: 100%;
+}
+
+.flip-card .card-front,
+.flip-card .card-back {
+    border-radius: 10px;
+    padding: 10px 0;
 }
