@@ -123,3 +123,20 @@ body {
 #slide-3:checked~.control-3~.slide-indicador li:nth-child(3) .slide-circulo {
     color: #428bca;
 }
+
+.info {
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.attribute {
+    font-weight: bold;
+}
+
+.back_button {
+    padding: 10px;
+    background-color: #2e518b;
+    border-radius: 30px;
+    color: #ffffff;
+    font-size: 20px;
+}
