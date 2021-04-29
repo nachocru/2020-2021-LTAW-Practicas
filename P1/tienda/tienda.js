@@ -22,21 +22,29 @@ const server = http.createServer((req, res) => {
     console.log("Contenido de la página: " + content);
 
     fs.readFile(page, (err, data) => {
+        let code = 200;
+        let code_msg = "OK";
+        let content_type = "text/html";
 
         if (err) {
             console.log("Error!!")
             console.log(err.message);
-            res.writeHead(404, { 'Content-Type': 'text/html' });
-            return res.end("404 Not Found");
+            code = 404;
+            code_msg = "404 Not Found"
+            res.writeHead(code, { 'Content-Type': 'text/html' });
+            return res.end(code_msg);
         }
         switch (content) {
             case 'html':
-                res.writeHead(200, { 'Content-Type': 'text/html' });
+                content_type = "text/html";
             case 'css':
-                res.writeHead(200, { 'Content-Type': 'text/css' });
+                content_type = "text/css";
             default:
-                res.writeHead(200, { 'Content-Type': content });
+                content_type = content;
         }
+        res.statusCode = code;
+        res.statusMessage = code_msg;
+        res.setHeader('Content-Type', content_type);
         res.write(data);
         res.end();
     });
