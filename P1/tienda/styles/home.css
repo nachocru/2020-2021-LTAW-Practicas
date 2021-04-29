@@ -40,6 +40,13 @@ body {
     width: 90%;
 }
 
+.card-link {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    color: black;
+    display: block;
+}
+
 .container {
     display: flex;
 }
