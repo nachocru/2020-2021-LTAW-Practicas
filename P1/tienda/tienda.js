@@ -1,7 +1,7 @@
 //-- Dependencias 
 const http = require('http');
 const fs = require('fs');
-const PORT = 9002
+const PORT = 9000
 
 const server = http.createServer((req, res) => {
 
