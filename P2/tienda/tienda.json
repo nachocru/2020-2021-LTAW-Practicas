@@ -1,0 +1,59 @@
+{
+    "users": [{
+            "name": "nachocru",
+            "real_name": "Nacho",
+            "email": "nachocruz@gmail.com"
+        },
+        {
+            "name": "root",
+            "real_name": "Root",
+            "email": "root@gmail.com"
+        }
+    ],
+    "products": [{
+            "name": "Zombicide",
+            "price": 89.99,
+            "description": "Un juego de zombies",
+            "stock": 3
+        },
+        {
+            "name": "Catán",
+            "price": 36.99,
+            "description": "Un juego de agricultura",
+            "stock": 5
+        },
+        {
+            "name": "Virus",
+            "price": 14.99,
+            "description": "Un juego de pandemias",
+            "stock": 10
+        },
+        {
+            "name": "Risk Star Wars",
+            "price": 29.99,
+            "description": "Un juego de conquista espacial",
+            "stock": 5
+        },
+        {
+            "name": "Exploding Kittens",
+            "price": 19.99,
+            "description": "Un juego de gatitos",
+            "stock": 5
+        },
+        {
+            "name": "Harry Potter juego de mesa",
+            "price": 39.99,
+            "description": "Un juego de magia",
+            "stock": 5
+        }
+    ],
+    "orders": [{
+        "user": "nachocru",
+        "direction": "Madrid",
+        "card": 123456789,
+        "products": [{
+            "name": "Zombicide",
+            "quantity": 1
+        }]
+    }]
+}
