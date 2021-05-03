@@ -24,6 +24,16 @@ tienda["products"].forEach((element, index) => {
     product_photo.push(element["photo"])
 });
 
+var product_alternative_photo = [];
+tienda["products"].forEach((element, index) => {
+    product_alternative_photo.push(element["alternative_photo"])
+});
+
+var product_links = [];
+tienda["products"].forEach((element, index) => {
+    product_links.push(element["link"])
+});
+
 const server = http.createServer((req, res) => {
 
     console.log("Petición recibida!");
@@ -52,6 +62,10 @@ const server = http.createServer((req, res) => {
             content = HOME_HTML.replace("PRICE" + i, product_prices[i - 1]);
             HOME_HTML = content;
             content = HOME_HTML.replace("PHOTO" + i, product_photo[i - 1]);
+            HOME_HTML = content;
+            content = HOME_HTML.replace("ALTERNATIVE_PHOTO" + i, product_alternative_photo[i - 1]);
+            HOME_HTML = content;
+            content = HOME_HTML.replace("LINK" + i, product_links[i - 1]);
             HOME_HTML = content;
         }
 
