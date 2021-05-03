@@ -8,9 +8,20 @@ const FICHERO_JSON = "tienda.json"
     //-- Leer el fichero JSON
 const tienda_json = fs.readFileSync(FICHERO_JSON);
 const tienda = JSON.parse(tienda_json);
+
 var product_names = [];
 tienda["products"].forEach((element, index) => {
     product_names.push(element["name"])
+});
+
+var product_prices = [];
+tienda["products"].forEach((element, index) => {
+    product_prices.push(element["price"])
+});
+
+var product_photo = [];
+tienda["products"].forEach((element, index) => {
+    product_photo.push(element["photo"])
 });
 
 const server = http.createServer((req, res) => {
@@ -38,7 +49,12 @@ const server = http.createServer((req, res) => {
         for (i = 1; i < 7; i++) {
             content = HOME_HTML.replace("PRODUCT" + i, product_names[i - 1]);
             HOME_HTML = content;
+            content = HOME_HTML.replace("PRICE" + i, product_prices[i - 1]);
+            HOME_HTML = content;
+            content = HOME_HTML.replace("PHOTO" + i, product_photo[i - 1]);
+            HOME_HTML = content;
         }
+
         //-- Enviar la respuesta
         res.setHeader('Content-Type', content_type);
         res.write(content);

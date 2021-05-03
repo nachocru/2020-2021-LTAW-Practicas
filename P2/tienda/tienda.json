@@ -14,36 +14,48 @@
             "name": "Zombicide",
             "price": 89.99,
             "description": "Un juego de zombies",
+            "photo": "product_images/zombicide.png",
+            "alternative_photo": "product_images/catan-back.jpeg",
             "stock": 3
         },
         {
             "name": "Catán",
             "price": 36.99,
             "description": "Un juego de agricultura",
+            "photo": "product_images/catan.jpg",
+            "alternative_photo": "product_images/zombicide-back.png",
             "stock": 5
         },
         {
             "name": "Virus",
             "price": 14.99,
             "description": "Un juego de pandemias",
+            "photo": "product_images/virus.jpg",
+            "alternative_photo": "product_images/virus-back.png",
             "stock": 10
         },
         {
             "name": "Risk Star Wars",
             "price": 29.99,
             "description": "Un juego de conquista espacial",
+            "photo": "product_images/risk.jpg",
+            "alternative_photo": "product_images/risk-back.jpg",
             "stock": 5
         },
         {
             "name": "Exploding Kittens",
             "price": 19.99,
             "description": "Un juego de gatitos",
+            "photo": "product_images/exploding.jpg",
+            "alternative_photo": "product_images/explodding-back.png",
             "stock": 5
         },
         {
             "name": "Harry Potter juego de mesa",
             "price": 39.99,
             "description": "Un juego de magia",
+            "photo": "product_images/harry.jpg",
+            "alternative_photo": "product_images/harry-back.png",
             "stock": 5
         }
     ],
