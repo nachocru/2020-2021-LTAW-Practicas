@@ -1,0 +1,21 @@
+body {
+    background-image: url("../product_images/fondo.jpg");
+    background-size: cover;
+    padding-top: 100px;
+}
+
+.content {
+    background-color: #99ebff;
+    height: 100%;
+    width: 500px;
+    margin: auto;
+    padding-bottom: 10px;
+    border-radius: 20px;
+    z-index: top;
+}
+
+.form {
+    padding: 40px;
+    justify-content: center;
+    display: grid;
+}
