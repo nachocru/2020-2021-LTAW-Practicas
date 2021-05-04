@@ -16,7 +16,7 @@
             "description": "Un juego de zombies",
             "photo": "product_images/zombicide.png",
             "alternative_photo": "product_images/zombicide-back.png",
-            "link": "product_details.html/catan-detail.html",
+            "link": "product_details.html/zombicide-detail.html",
             "stock": 3
         },
         {
@@ -25,7 +25,7 @@
             "description": "Un juego de agricultura",
             "photo": "product_images/catan.jpg",
             "alternative_photo": "product_images/catan-back.jpeg",
-            "link": "product_details.html/zombicide-detail.html",
+            "link": "product_details.html/catan-detail.html",
             "stock": 5
         },
         {
