@@ -11,6 +11,23 @@ body {
     padding-bottom: 10px;
 }
 
+.header2 {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-right: 48px;
+    display: flex;
+    justify-content: center;
+}
+
+.input {
+    margin-right: 96px;
+}
+
+.login {
+    align-content: center;
+    display: grid;
+}
+
 .header {
     display: inline-flex;
     justify-content: center;
