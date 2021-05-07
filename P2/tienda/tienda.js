@@ -84,9 +84,9 @@ const server = http.createServer((req, res) => {
 
     //-- Obtener le usuario que ha accedido
     //-- null si no se ha reconocido
+    let page = '' //-- Página que queremos cargar
     if (myURL.pathname == '/procesar') {
-
-        let name = myURL.searchParams.get('nombre');
+        let name = myURL.searchParams.get('name');
         let apellidos = myURL.searchParams.get('password');
         console.log("Nombre: " + name);
         console.log("Apellidos: " + apellidos);
@@ -98,17 +98,20 @@ const server = http.createServer((req, res) => {
             }
         }
         console.log(userExist)
+        if (userExist == true) {
+            console.log('entro')
+            page = './login-success.html'
+        } else {
+            console.log('ENTROOOOO')
+            page = './login-fail.html'
+        }
         content_type = "text/html";
-
-
-    }
-
-    let page = '' //-- Página que queremos cargar
-    if (myURL.pathname == "/") { //-- Cuando lanzamos nuestra página web
+    } else if (myURL.pathname == "/") { //-- Cuando lanzamos nuestra página web
         page = './home.html'
     } else { // -- En cualquier otro caso
         page = '.' + myURL.pathname;
     }
+
 
     console.log("Página solicitada: " + page)
 
