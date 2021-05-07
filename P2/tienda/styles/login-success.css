@@ -1,0 +1,39 @@
+body {
+    background-image: url("../product_images/fondo.jpg");
+    background-size: cover;
+    padding-top: 50px;
+}
+
+.content {
+    background-color: #99ebff;
+    height: 500px;
+    width: 700px;
+    margin: auto;
+    padding-bottom: 10px;
+    border-radius: 20px;
+    z-index: top;
+    text-align: center;
+}
+
+.info {
+    margin-bottom: 30px;
+}
+
+.title {
+    -webkit-text-stroke: 1px rgb(255, 255, 0);
+    -webkit-text-fill-color: rgb(0, 0, 0);
+    padding-top: 30px;
+}
+
+.image {
+    width: 50%;
+    border-radius: 20px;
+}
+
+.back_button {
+    padding: 10px;
+    background-color: #2e518b;
+    border-radius: 30px;
+    color: #ffffff;
+    font-size: 20px;
+}
