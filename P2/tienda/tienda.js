@@ -34,11 +34,74 @@ tienda["products"].forEach((element, index) => {
     product_links.push(element["link"])
 });
 
+var users_names = [];
+tienda["users"].forEach((element, index) => {
+    users_names.push(element["name"])
+});
+
+
+//-- Analizar la cookie y devolver el nombre del
+//-- usuario si existe, o null en caso contrario
+// function get_user(req) {
+
+//     //-- Leer la Cookie recibida
+//     const cookie = req.headers.cookie;
+
+//     //-- Hay cookie
+//     if (cookie) {
+
+//         //-- Obtener un array con todos los pares nombre-valor
+//         let pares = cookie.split(";");
+
+//         //-- Variable para guardar el usuario
+//         let user;
+
+//         //-- Recorrer todos los pares nombre-valor
+//         pares.forEach((element, index) => {
+
+//             //-- Obtener los nombres y valores por separado
+//             let [nombre, valor] = element.split('=');
+
+//             //-- Leer el usuario
+//             //-- Solo si el nombre es 'user'
+//             if (nombre.trim() === 'user') {
+//                 user = valor;
+//             }
+//         });
+
+//         //-- Si la variable user no está asignada
+//         //-- se devuelve null
+//         return user || null;
+//     }
+// }
+
 const server = http.createServer((req, res) => {
+
 
     console.log("Petición recibida!");
     const myURL = new URL(req.url, 'http://' + req.headers['host']);
     console.log("URL solicitada: " + myURL.pathname);
+
+    //-- Obtener le usuario que ha accedido
+    //-- null si no se ha reconocido
+    if (myURL.pathname == '/procesar') {
+
+        let name = myURL.searchParams.get('nombre');
+        let apellidos = myURL.searchParams.get('password');
+        console.log("Nombre: " + name);
+        console.log("Apellidos: " + apellidos);
+        //-- Comprobamos si el nombre coincide con el guardado en base de datos
+        let userExist = false;
+        for (i = 0; i < users_names.length; i++) {
+            if (name == users_names[i]) {
+                userExist = true
+            }
+        }
+        console.log(userExist)
+        content_type = "text/html";
+
+
+    }
 
     let page = '' //-- Página que queremos cargar
     if (myURL.pathname == "/") { //-- Cuando lanzamos nuestra página web
