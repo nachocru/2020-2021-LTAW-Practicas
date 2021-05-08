@@ -42,38 +42,38 @@ tienda["users"].forEach((element, index) => {
 
 //-- Analizar la cookie y devolver el nombre del
 //-- usuario si existe, o null en caso contrario
-// function get_user(req) {
+function get_user(req) {
 
-//     //-- Leer la Cookie recibida
-//     const cookie = req.headers.cookie;
+    //-- Leer la Cookie recibida
+    const cookie = req.headers.cookie;
 
-//     //-- Hay cookie
-//     if (cookie) {
+    //-- Hay cookie
+    if (cookie) {
 
-//         //-- Obtener un array con todos los pares nombre-valor
-//         let pares = cookie.split(";");
+        //-- Obtener un array con todos los pares nombre-valor
+        let pares = cookie.split(";");
 
-//         //-- Variable para guardar el usuario
-//         let user;
+        //-- Variable para guardar el usuario
+        let user;
 
-//         //-- Recorrer todos los pares nombre-valor
-//         pares.forEach((element, index) => {
+        //-- Recorrer todos los pares nombre-valor
+        pares.forEach((element, index) => {
 
-//             //-- Obtener los nombres y valores por separado
-//             let [nombre, valor] = element.split('=');
+            //-- Obtener los nombres y valores por separado
+            let [nombre, valor] = element.split('=');
 
-//             //-- Leer el usuario
-//             //-- Solo si el nombre es 'user'
-//             if (nombre.trim() === 'user') {
-//                 user = valor;
-//             }
-//         });
+            //-- Leer el usuario
+            //-- Solo si el nombre es 'user'
+            if (nombre.trim() === 'user') {
+                user = valor;
+            }
+        });
 
-//         //-- Si la variable user no está asignada
-//         //-- se devuelve null
-//         return user || null;
-//     }
-// }
+        //-- Si la variable user no está asignada
+        //-- se devuelve null
+        return user || null;
+    }
+}
 
 const server = http.createServer((req, res) => {
 
@@ -84,12 +84,16 @@ const server = http.createServer((req, res) => {
 
     //-- Obtener le usuario que ha accedido
     //-- null si no se ha reconocido
+    let user = get_user(req);
+
+    //-- Obtener le usuario que ha accedido
+    //-- null si no se ha reconocido
     let page = '' //-- Página que queremos cargar
     if (myURL.pathname == '/procesar') {
         let name = myURL.searchParams.get('name');
-        let apellidos = myURL.searchParams.get('password');
+        let password = myURL.searchParams.get('password');
         console.log("Nombre: " + name);
-        console.log("Apellidos: " + apellidos);
+        console.log("Password: " + password);
         //-- Comprobamos si el nombre coincide con el guardado en base de datos
         let userExist = false;
         for (i = 0; i < users_names.length; i++) {
@@ -99,6 +103,9 @@ const server = http.createServer((req, res) => {
         }
         console.log(userExist)
         if (userExist == true) {
+
+            //-- Asignar la cookie de usuario Chuck
+            res.setHeader('Set-Cookie', "user=" + name);
             page = './login-success.html'
         } else {
             page = './login-fail.html'
@@ -142,6 +149,18 @@ const server = http.createServer((req, res) => {
         var HOME_HTML = fs.readFileSync('home.html', 'utf-8');
         let content_type = "text/html";
         let content;
+        console.log(user)
+        if (user) {
+            //-- Añadir a la página el nombre del usuario
+            content = HOME_HTML.replace("USER", `<p class="welcome">Hola ` + user + `</p>`);
+            HOME_HTML = content;
+        } else {
+            //-- Mostrar el enlace a la página de login
+            content = HOME_HTML.replace("USER", `
+            <a class="login" href="login.html">Iniciar Sesión</a>
+            `);
+            HOME_HTML = content;
+        }
         for (i = 1; i < 7; i++) {
             content = HOME_HTML.replace("PRODUCT" + i, product_names[i - 1]);
             HOME_HTML = content;
