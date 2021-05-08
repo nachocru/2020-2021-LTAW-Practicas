@@ -20,12 +20,17 @@ body {
 }
 
 .input {
-    margin-right: 96px;
+    margin-right: 86px;
 }
 
 .login {
     align-content: center;
     display: grid;
+    margin-right: 60px;
+}
+
+.icon {
+    margin-top: 8px;
 }
 
 .header {
@@ -64,7 +69,7 @@ body {
     display: block;
 }
 
-.container {
+.container2 {
     display: flex;
 }
 
