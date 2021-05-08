@@ -99,13 +99,33 @@ const server = http.createServer((req, res) => {
         }
         console.log(userExist)
         if (userExist == true) {
-            console.log('entro')
             page = './login-success.html'
         } else {
-            console.log('ENTROOOOO')
             page = './login-fail.html'
         }
-        content_type = "text/html";
+    } else if (myURL.pathname == "/comprar") {
+        let direction = myURL.searchParams.get('direction');
+        let card = myURL.searchParams.get('card');
+        console.log("Dirección: " + direction);
+        console.log("Número de tarjeta: " + card);
+        //-- Añadimos esta info al fichero json
+        //-- Modificar el nombre del producto 2
+        tienda["orders"].push({
+            "user": "nachocru",
+            "direction": direction,
+            "card": card,
+            "products": [{
+                "name": "Zombicide",
+                "quantity": 1
+            }]
+        })
+
+        //-- Convertir la variable a cadena JSON
+        let myJSON = JSON.stringify(tienda);
+
+        //-- Guardarla en el fichero destino
+        fs.writeFileSync(FICHERO_JSON, myJSON);
+        page = './home.html'
     } else if (myURL.pathname == "/") { //-- Cuando lanzamos nuestra página web
         page = './home.html'
     } else { // -- En cualquier otro caso

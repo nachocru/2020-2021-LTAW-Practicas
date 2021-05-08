@@ -4,11 +4,7 @@
             "real_name": "Nacho",
             "email": "nachocruz@gmail.com"
         },
-        {
-            "name": "root",
-            "real_name": "Root",
-            "email": "root@gmail.com"
-        }
+        { "name": "root", "real_name": "Root", "email": "root@gmail.com" }
     ],
     "products": [{
             "name": "Zombicide",
@@ -68,10 +64,7 @@
     "orders": [{
         "user": "nachocru",
         "direction": "Madrid",
-        "card": 123456789,
-        "products": [{
-            "name": "Zombicide",
-            "quantity": 1
-        }]
+        "card": "123456789",
+        "products": [{ "name": "Zombicide", "quantity": 1 }]
     }]
 }
