@@ -29,6 +29,11 @@ tienda["products"].forEach((element, index) => {
     product_alternative_photo.push(element["alternative_photo"])
 });
 
+var product_descriptions = [];
+tienda["products"].forEach((element, index) => {
+    product_descriptions.push(element["description"])
+});
+
 var product_links = [];
 tienda["products"].forEach((element, index) => {
     product_links.push(element["link"])
@@ -73,6 +78,24 @@ function get_user(req) {
         //-- se devuelve null
         return user || null;
     }
+}
+
+function setProductData(name) {
+    var PRODUCT_DETAIL_HTML = fs.readFileSync('product-detail.html', 'utf-8');
+    let content_type = "text/html";
+    let content;
+    let indice = product_names.indexOf(name);
+    console.log("NOMBREE " + name)
+    console.log("INDICEE " + indice)
+
+    content = PRODUCT_DETAIL_HTML.replace("PRODUCT_NAME", name);
+    content = content.replace("PRODUCT_TITLE", name);
+    content = content.replace("PRICE", product_prices[indice]);
+    content = content.replace("PHOTO", product_photo[indice]);
+    content = content.replace("ALTERNATIVE_PHOTO", product_alternative_photo[indice]);
+    content = content.replace("DESCRIPTION", product_descriptions[indice]);
+
+    return content;
 }
 
 const server = http.createServer((req, res) => {
@@ -163,14 +186,10 @@ const server = http.createServer((req, res) => {
         }
         for (i = 1; i < 7; i++) {
             content = HOME_HTML.replace("PRODUCT" + i, product_names[i - 1]);
-            HOME_HTML = content;
-            content = HOME_HTML.replace("PRICE" + i, product_prices[i - 1]);
-            HOME_HTML = content;
-            content = HOME_HTML.replace("PHOTO" + i, product_photo[i - 1]);
-            HOME_HTML = content;
-            content = HOME_HTML.replace("ALTERNATIVE_PHOTO" + i, product_alternative_photo[i - 1]);
-            HOME_HTML = content;
-            content = HOME_HTML.replace("LINK" + i, product_links[i - 1]);
+            content = content.replace("PRICE" + i, product_prices[i - 1]);
+            content = content.replace("PHOTO" + i, product_photo[i - 1]);
+            content = content.replace("ALTERNATIVE_PHOTO" + i, product_alternative_photo[i - 1]);
+            content = content.replace("LINK" + i, product_links[i - 1]);
             HOME_HTML = content;
         }
 
@@ -178,6 +197,14 @@ const server = http.createServer((req, res) => {
         res.setHeader('Content-Type', content_type);
         res.write(content);
         res.end()
+    } else if (page == './product_details.html/zombicide-detail.html') {
+        let content = setProductData("Zombicide");
+        let content_type = "text/html";
+        //-- Enviar la respuesta
+        res.setHeader('Content-Type', content_type);
+        res.write(content);
+        res.end()
+
     } else {
         fs.readFile(page, (err, data) => {
             let code = 200;

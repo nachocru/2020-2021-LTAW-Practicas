@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>PRODUCT_TITLE</title>
+    <link rel="stylesheet" href="../styles/product-detail.css">
+</head>
+
+<div class="content">
+    <div class="product">
+        <h1 class="title">
+            PRODUCT_NAME
+        </h1>
+
+        <body>
+            <div class="slide">
+                <div class="slide-inner">
+                    <input class="slide-open" type="radio" id="slide-1" name="slide" aria-hidden="true" hidden="" checked="checked">
+                    <div class="slide-item">
+                        <img src="../PHOTO">
+                    </div>
+                    <input class="slide-open" type="radio" id="slide-2" name="slide" aria-hidden="true" hidden="">
+                    <div class="slide-item">
+                        <img src="../ALTERNATIVE_PHOTO">
+                    </div>
+                    <label for="slide-2" class="slide-control prev control-1">‹</label>
+                    <label for="slide-2" class="slide-control next control-1">›</label>
+                    <label for="slide-1" class="slide-control prev control-2">‹</label>
+                    <label for="slide-1" class="slide-control next control-2">›</label>
+                    <ol class="slide-indicador">
+                        <li>
+                            <label for="slide-1" class="slide-circulo">•</label>
+                        </li>
+                        <li>
+                            <label for="slide-2" class="slide-circulo">•</label>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+            <div class="slide info">
+                <p><span class="attribute">Descripción:</span> DESCRIPTION</p>
+                <p><span class="attribute">Precio:</span> PRICE</p>
+            </div>
+        </body>
+        <button class="back_button">
+            <a style="text-decoration:none; color:white" href="../home.html">Volver a la página principal</a>
+        </button>
+    </div>
+</div>
