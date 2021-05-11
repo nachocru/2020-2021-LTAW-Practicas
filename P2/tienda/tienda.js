@@ -50,13 +50,14 @@ tienda["users"].forEach((element, index) => {
 function get_user(req) {
 
     //-- Leer la Cookie recibida
-    const cookie = req.headers.cookie;
+    const cookie2 = req.headers.cookie;
 
     //-- Hay cookie
-    if (cookie) {
+    if (cookie2) {
 
         //-- Obtener un array con todos los pares nombre-valor
-        let pares = cookie.split(";");
+        let pares = cookie2.split(";");
+        console.log("PARES" + pares)
 
         //-- Variable para guardar el usuario
         let user;
@@ -80,13 +81,57 @@ function get_user(req) {
     }
 }
 
+function get_carrito(req) {
+    console.log("REQ" + req.headers.cookie)
+
+    //-- Leer la Cookie recibida
+    const cookie3 = req.headers.cookie;
+
+    //-- Hay cookie
+    if (cookie3) {
+        let pares = cookie3.split(";");
+        let carrito;
+
+        pares.forEach((element, index) => {
+
+            let [nombre, valor] = element.split('=');
+
+            if (nombre.trim() === 'carrito') {
+                carrito = valor;
+            }
+        });
+
+        return carrito || null;
+    }
+}
+
+function get_product(req) {
+
+    //-- Leer la Cookie recibida
+    const cookie = req.headers.cookie;
+
+    //-- Hay cookie
+    if (cookie) {
+        let pares = cookie.split(";");
+        let product;
+
+        pares.forEach((element, index) => {
+
+            let [nombre, valor] = element.split('=');
+
+            if (nombre.trim() === 'product') {
+                product = valor;
+            }
+        });
+
+        return product || null;
+    }
+}
+
 function setProductData(name) {
     var PRODUCT_DETAIL_HTML = fs.readFileSync('product-detail.html', 'utf-8');
-    let content_type = "text/html";
     let content;
     let indice = product_names.indexOf(name);
-    console.log("NOMBREE " + name)
-    console.log("INDICEE " + indice)
 
     content = PRODUCT_DETAIL_HTML.replace("PRODUCT_NAME", name);
     content = content.replace("PRODUCT_TITLE", name);
@@ -96,6 +141,12 @@ function setProductData(name) {
     content = content.replace("DESCRIPTION", product_descriptions[indice]);
 
     return content;
+}
+
+function sendContent(res, content, content_type) {
+    res.setHeader('Content-Type', content_type);
+    res.write(content);
+    res.end()
 }
 
 const server = http.createServer((req, res) => {
@@ -108,6 +159,8 @@ const server = http.createServer((req, res) => {
     //-- Obtener le usuario que ha accedido
     //-- null si no se ha reconocido
     let user = get_user(req);
+    let carrito = get_carrito(req);
+    let product = get_product(req);
 
     //-- Obtener le usuario que ha accedido
     //-- null si no se ha reconocido
@@ -133,6 +186,13 @@ const server = http.createServer((req, res) => {
         } else {
             page = './login-fail.html'
         }
+    } else if (myURL.pathname == "/anadir") {
+        if (carrito) {
+            res.setHeader('Set-Cookie', "carrito=" + carrito + ':' + product);
+        } else {
+            res.setHeader('Set-Cookie', "carrito=" + product);
+        }
+        page = './added-success.html'
     } else if (myURL.pathname == "/comprar") {
         let direction = myURL.searchParams.get('direction');
         let card = myURL.searchParams.get('card');
@@ -158,6 +218,9 @@ const server = http.createServer((req, res) => {
         page = './home.html'
     } else if (myURL.pathname == "/") { //-- Cuando lanzamos nuestra página web
         page = './home.html'
+    } else if (myURL.pathname == "/product_details.html/zombicide-detail.html") {
+        res.setHeader('Set-Cookie', "product=" + "Zombicide", 'path=/');
+        page = '.' + myURL.pathname;
     } else { // -- En cualquier otro caso
         page = '.' + myURL.pathname;
     }
@@ -194,17 +257,43 @@ const server = http.createServer((req, res) => {
         }
 
         //-- Enviar la respuesta
-        res.setHeader('Content-Type', content_type);
-        res.write(content);
-        res.end()
-    } else if (page == './product_details.html/zombicide-detail.html') {
+        sendContent(res, content, content_type);
+    } else if (page == './zombicide-detail.html') {
         let content = setProductData("Zombicide");
         let content_type = "text/html";
         //-- Enviar la respuesta
-        res.setHeader('Content-Type', content_type);
-        res.write(content);
-        res.end()
-
+        res.setHeader('Set-Cookie', "product=" + "Zombicide");
+        sendContent(res, content, content_type);
+    } else if (page == './catan-detail.html') {
+        let content = setProductData("Catán");
+        let content_type = "text/html";
+        //-- Enviar la respuesta
+        res.setHeader('Set-Cookie', "product=" + "Catán");
+        sendContent(res, content, content_type);
+    } else if (page == './virus-detail.html') {
+        let content = setProductData("Virus");
+        let content_type = "text/html";
+        //-- Enviar la respuesta
+        res.setHeader('Set-Cookie', "product=" + "Virus");
+        sendContent(res, content, content_type);
+    } else if (page == './risk-detail.html') {
+        let content = setProductData("Risk Star Wars");
+        let content_type = "text/html";
+        //-- Enviar la respuesta
+        res.setHeader('Set-Cookie', "product=" + "Risk Star Wars");
+        sendContent(res, content, content_type);
+    } else if (page == './harry-details.html') {
+        let content = setProductData("Harry Potter juego de mesa");
+        let content_type = "text/html";
+        //-- Enviar la respuesta
+        res.setHeader('Set-Cookie', "product=" + "Harry Potter juego de mesa");
+        sendContent(res, content, content_type);
+    } else if (page == './exploding-detail.html') {
+        let content = setProductData("Exploding Kittens");
+        let content_type = "text/html";
+        //-- Enviar la respuesta
+        res.setHeader('Set-Cookie', "product=" + "Exploding Kittens");
+        sendContent(res, content, content_type);
     } else {
         fs.readFile(page, (err, data) => {
             let code = 200;

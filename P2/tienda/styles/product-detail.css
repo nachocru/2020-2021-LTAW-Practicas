@@ -140,3 +140,11 @@ body {
     color: #ffffff;
     font-size: 20px;
 }
+
+.buy_button {
+    padding: 10px;
+    background-color: #99ebff;
+    border-radius: 30px;
+    color: #ffffff;
+    font-size: 20px;
+}
