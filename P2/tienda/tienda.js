@@ -114,6 +114,11 @@ function get_product(req) {
     }
 }
 
+function get_products(string) {
+    let products = string.split(":");
+    return products
+}
+
 // Funcion que obtiene los datos de un producto al pinchaer en su página
 function setProductData(name) {
     var PRODUCT_DETAIL_HTML = fs.readFileSync('product-detail.html', 'utf-8');
@@ -196,17 +201,24 @@ const server = http.createServer((req, res) => {
         let card = myURL.searchParams.get('card');
         console.log("Dirección: " + direction);
         console.log("Número de tarjeta: " + card);
+
+        if (carrito) {
+            productos = get_products(carrito)
+            productos.forEach((element, index) => {
+                tienda["orders"].push({
+                    "user": user,
+                    "direction": direction,
+                    "card": card,
+                    "products": [{
+                        "name": element,
+                        "quantity": 1
+                    }]
+                })
+            })
+        }
         //-- Añadimos esta info al fichero json
         //-- Modificar el nombre del producto 2
-        tienda["orders"].push({
-            "user": "nachocru",
-            "direction": direction,
-            "card": card,
-            "products": [{
-                "name": "Zombicide",
-                "quantity": 1
-            }]
-        })
+
 
         //-- Convertir la variable a cadena JSON
         let myJSON = JSON.stringify(tienda);
@@ -261,12 +273,17 @@ const server = http.createServer((req, res) => {
     } else if (page == './cart.html') {
         var CART_HTML = fs.readFileSync('cart.html', 'utf-8');
         let content_type = "text/html";
-        let content;
+        let content = CART_HTML;
         if (carrito) {
-            content = CART_HTML.replace("No hay productos en el carrito.", carrito);
+            productos = get_products(carrito)
+            let linea = ''
+            productos.forEach((element, index) => {
+                linea = linea + '<br>' + element + '  ---------------->  x1' + '<br>'
+            })
+            content = CART_HTML.replace("No hay productos en el carrito.", linea);
             CART_HTML = content;
-
         }
+
         //-- Enviar la respuesta
         sendContent(res, content, content_type);
     } else if (page == './zombicide-detail.html') {
