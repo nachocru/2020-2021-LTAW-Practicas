@@ -9,37 +9,37 @@ const FICHERO_JSON = "tienda.json"
 const tienda_json = fs.readFileSync(FICHERO_JSON);
 const tienda = JSON.parse(tienda_json);
 
-var product_names = [];
+var product_names = []; // Obtener del fichero json los nombres de los productos
 tienda["products"].forEach((element, index) => {
     product_names.push(element["name"])
 });
 
-var product_prices = [];
+var product_prices = []; // Obtener del fichero json los precios de los productos
 tienda["products"].forEach((element, index) => {
     product_prices.push(element["price"])
 });
 
-var product_photo = [];
+var product_photo = []; // Obtener del fichero json la foto principal de los productos
 tienda["products"].forEach((element, index) => {
     product_photo.push(element["photo"])
 });
 
-var product_alternative_photo = [];
+var product_alternative_photo = []; // Obtener del fichero json la foto secundaria de los productos
 tienda["products"].forEach((element, index) => {
     product_alternative_photo.push(element["alternative_photo"])
 });
 
-var product_descriptions = [];
+var product_descriptions = []; // Obtener del fichero json la descripcion de los productos
 tienda["products"].forEach((element, index) => {
     product_descriptions.push(element["description"])
 });
 
-var product_links = [];
+var product_links = []; // Obtener del fichero json los links hacia los productos
 tienda["products"].forEach((element, index) => {
     product_links.push(element["link"])
 });
 
-var users_names = [];
+var users_names = []; // Obtener del fichero json los nombres de usuarios
 tienda["users"].forEach((element, index) => {
     users_names.push(element["name"])
 });
@@ -187,12 +187,17 @@ const server = http.createServer((req, res) => {
             page = './login-fail.html'
         }
     } else if (myURL.pathname == "/anadir") {
-        if (carrito) {
-            res.setHeader('Set-Cookie', "carrito=" + carrito + ':' + product);
+        if (user) {
+            if (carrito) {
+                res.setHeader('Set-Cookie', "carrito=" + carrito + ':' + product);
+            } else {
+                res.setHeader('Set-Cookie', "carrito=" + product);
+            }
+            page = './added-success.html'
         } else {
-            res.setHeader('Set-Cookie', "carrito=" + product);
+            page = './not-logged.html'
         }
-        page = './added-success.html'
+
     } else if (myURL.pathname == "/comprar") {
         let direction = myURL.searchParams.get('direction');
         let card = myURL.searchParams.get('card');
