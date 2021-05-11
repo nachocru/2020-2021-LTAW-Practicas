@@ -19,3 +19,21 @@ body {
     justify-content: center;
     display: grid;
 }
+
+.order_resume {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.button {
+    text-align: center;
+}
+
+.back_button {
+    padding: 10px;
+    background-color: #2e518b;
+    border-radius: 30px;
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 30px;
+}

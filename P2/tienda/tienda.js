@@ -45,53 +45,41 @@ tienda["users"].forEach((element, index) => {
 });
 
 
-//-- Analizar la cookie y devolver el nombre del
-//-- usuario si existe, o null en caso contrario
+//-- Función que obtiene la cookie de usuario
 function get_user(req) {
-
     //-- Leer la Cookie recibida
-    const cookie2 = req.headers.cookie;
+    const cookie = req.headers.cookie;
 
     //-- Hay cookie
-    if (cookie2) {
-
+    if (cookie) {
         //-- Obtener un array con todos los pares nombre-valor
-        let pares = cookie2.split(";");
-        console.log("PARES" + pares)
-
+        let pares = cookie.split(";");
         //-- Variable para guardar el usuario
         let user;
-
         //-- Recorrer todos los pares nombre-valor
         pares.forEach((element, index) => {
-
             //-- Obtener los nombres y valores por separado
             let [nombre, valor] = element.split('=');
-
             //-- Leer el usuario
             //-- Solo si el nombre es 'user'
             if (nombre.trim() === 'user') {
                 user = valor;
             }
         });
-
         //-- Si la variable user no está asignada
         //-- se devuelve null
         return user || null;
     }
 }
 
+//-- Función que obtiene la cookie del carrito con los productos
 function get_carrito(req) {
     console.log("REQ" + req.headers.cookie)
+    const cookie = req.headers.cookie;
 
-    //-- Leer la Cookie recibida
-    const cookie3 = req.headers.cookie;
-
-    //-- Hay cookie
-    if (cookie3) {
-        let pares = cookie3.split(";");
+    if (cookie) {
+        let pares = cookie.split(";");
         let carrito;
-
         pares.forEach((element, index) => {
 
             let [nombre, valor] = element.split('=');
@@ -105,12 +93,10 @@ function get_carrito(req) {
     }
 }
 
+//-- Función que obtiene la cookie del producto actual
 function get_product(req) {
-
-    //-- Leer la Cookie recibida
     const cookie = req.headers.cookie;
 
-    //-- Hay cookie
     if (cookie) {
         let pares = cookie.split(";");
         let product;
@@ -128,11 +114,13 @@ function get_product(req) {
     }
 }
 
+// Funcion que obtiene los datos de un producto al pinchaer en su página
 function setProductData(name) {
     var PRODUCT_DETAIL_HTML = fs.readFileSync('product-detail.html', 'utf-8');
     let content;
     let indice = product_names.indexOf(name);
 
+    // Reemplazamos todos los datos
     content = PRODUCT_DETAIL_HTML.replace("PRODUCT_NAME", name);
     content = content.replace("PRODUCT_TITLE", name);
     content = content.replace("PRICE", product_prices[indice]);
@@ -143,6 +131,7 @@ function setProductData(name) {
     return content;
 }
 
+// Funcion que devuelve una respuesta del servidor
 function sendContent(res, content, content_type) {
     res.setHeader('Content-Type', content_type);
     res.write(content);
@@ -151,21 +140,17 @@ function sendContent(res, content, content_type) {
 
 const server = http.createServer((req, res) => {
 
-
     console.log("Petición recibida!");
     const myURL = new URL(req.url, 'http://' + req.headers['host']);
     console.log("URL solicitada: " + myURL.pathname);
 
-    //-- Obtener le usuario que ha accedido
-    //-- null si no se ha reconocido
+    //-- Obtenemos la info del usuario, el producto y el carrito
     let user = get_user(req);
     let carrito = get_carrito(req);
     let product = get_product(req);
 
-    //-- Obtener le usuario que ha accedido
-    //-- null si no se ha reconocido
     let page = '' //-- Página que queremos cargar
-    if (myURL.pathname == '/procesar') {
+    if (myURL.pathname == '/procesar') { // Cuando se hace login
         let name = myURL.searchParams.get('name');
         let password = myURL.searchParams.get('password');
         console.log("Nombre: " + name);
@@ -177,17 +162,15 @@ const server = http.createServer((req, res) => {
                 userExist = true
             }
         }
-        console.log(userExist)
         if (userExist == true) {
-
-            //-- Asignar la cookie de usuario Chuck
+            //-- Asignar la cookie de usuario 
             res.setHeader('Set-Cookie', "user=" + name);
             page = './login-success.html'
         } else {
             page = './login-fail.html'
         }
-    } else if (myURL.pathname == "/anadir") {
-        if (user) {
+    } else if (myURL.pathname == "/anadir") { // Añadir producto al carrito
+        if (user) { // Solo se puede añadir si hay un usuario registrado
             if (carrito) {
                 res.setHeader('Set-Cookie', "carrito=" + carrito + ':' + product);
             } else {
@@ -198,7 +181,17 @@ const server = http.createServer((req, res) => {
             page = './not-logged.html'
         }
 
-    } else if (myURL.pathname == "/comprar") {
+    } else if (myURL.pathname == "/cart.html") {
+        if (user) {
+            page = '.' + myURL.pathname;
+
+        } else {
+            page = './not-logged.html'
+        }
+
+
+    } else if (myURL.pathname == "/comprar") { // Procesamiento de la compra
+
         let direction = myURL.searchParams.get('direction');
         let card = myURL.searchParams.get('card');
         console.log("Dirección: " + direction);
@@ -221,6 +214,8 @@ const server = http.createServer((req, res) => {
         //-- Guardarla en el fichero destino
         fs.writeFileSync(FICHERO_JSON, myJSON);
         page = './home.html'
+
+
     } else if (myURL.pathname == "/") { //-- Cuando lanzamos nuestra página web
         page = './home.html'
     } else if (myURL.pathname == "/product_details.html/zombicide-detail.html") {
@@ -263,6 +258,17 @@ const server = http.createServer((req, res) => {
 
         //-- Enviar la respuesta
         sendContent(res, content, content_type);
+    } else if (page == './cart.html') {
+        var CART_HTML = fs.readFileSync('cart.html', 'utf-8');
+        let content_type = "text/html";
+        let content;
+        if (carrito) {
+            content = CART_HTML.replace("No hay productos en el carrito.", carrito);
+            CART_HTML = content;
+
+        }
+        //-- Enviar la respuesta
+        sendContent(res, content, content_type);
     } else if (page == './zombicide-detail.html') {
         let content = setProductData("Zombicide");
         let content_type = "text/html";
@@ -270,10 +276,10 @@ const server = http.createServer((req, res) => {
         res.setHeader('Set-Cookie', "product=" + "Zombicide");
         sendContent(res, content, content_type);
     } else if (page == './catan-detail.html') {
-        let content = setProductData("Catán");
+        let content = setProductData("Catan");
         let content_type = "text/html";
         //-- Enviar la respuesta
-        res.setHeader('Set-Cookie', "product=" + "Catán");
+        res.setHeader('Set-Cookie', "product=" + "Catan");
         sendContent(res, content, content_type);
     } else if (page == './virus-detail.html') {
         let content = setProductData("Virus");
