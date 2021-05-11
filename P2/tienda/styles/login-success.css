@@ -30,6 +30,10 @@ body {
     border-radius: 20px;
 }
 
+.image2 {
+    width: 25%;
+}
+
 .back_button {
     padding: 10px;
     background-color: #2e518b;
