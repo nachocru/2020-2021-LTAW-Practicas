@@ -23,6 +23,10 @@ body {
     margin-right: 86px;
 }
 
+.search {
+    background-color: aliceblue;
+}
+
 .login {
     align-content: center;
     display: grid;

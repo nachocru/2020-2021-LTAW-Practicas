@@ -233,6 +233,57 @@ const server = http.createServer((req, res) => {
     } else if (myURL.pathname == "/product_details.html/zombicide-detail.html") {
         res.setHeader('Set-Cookie', "product=" + "Zombicide", 'path=/');
         page = '.' + myURL.pathname;
+    } else if (myURL.pathname == "/productos") {
+
+        console.log("Peticion de Productos!")
+        content_type = "application/json";
+
+        //-- Leer los parámetros
+        let param1 = myURL.searchParams.get('param1');
+
+        param1 = param1.toUpperCase();
+
+        console.log("  Param: " + param1);
+
+        let result = [];
+
+        for (let prod of product_names) {
+
+            //-- Pasar a mayúsculas
+            prodU = prod.toUpperCase();
+
+            //-- Si el producto comienza por lo indicado en el parametro
+            //-- meter este producto en el array de resultados
+            if (prodU.startsWith(param1)) {
+                result.push(prod);
+            }
+
+        }
+        console.log(result);
+        content = JSON.stringify(result);
+        res.setHeader('Content-Type', content_type);
+        res.write(content);
+        res.end()
+        return;
+    } else if (myURL.pathname == "/client.js") {
+        //-- Leer fichero javascript
+        let recurso = myURL.pathname;
+        recurso = recurso.substr(1);
+        console.log("recurso: " + recurso);
+        fs.readFile(recurso, 'utf-8', (err, data) => {
+            if (err) {
+                console.log("Error: " + err)
+                return;
+            } else {
+                res.setHeader('Content-Type', 'application/javascript');
+                res.write(data);
+                res.end();
+            }
+        });
+
+        return;
+
+        //-- Si no es ninguna de las anteriores devolver mensaje de error
     } else { // -- En cualquier otro caso
         page = '.' + myURL.pathname;
     }
