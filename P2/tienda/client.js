@@ -32,9 +32,25 @@ caja.oninput = () => {
 
                 //--Recorrer los productos del objeto JSON
                 for (let i = 0; i < productos.length; i++) {
+                    let link;
+                    switch (productos[i]) {
+                        case 'Risk Star Wars':
+                            link = 'risk-detail.html';
+                            break;
+                        case 'Exploding Kittens':
+                            link = 'exploding-detail.html';
+                            break;
+                        case 'Harry Potter juego de mesa':
+                            link = 'harry-details.html';
+                            break;
+                        default:
+                            link = productos[i].toLowerCase() + '-detail.html'
+                            break;
+                    }
 
                     //-- Añadir cada producto al párrafo de visualización
-                    display1.innerHTML += '<div class="search">' + productos[i] + '</div>';
+                    display1.innerHTML += '<div class="search"><a href="' + link + '">' + productos[i] + '</a></div>';
+                    //display1.innerHTML += '<a class="search" href="' + productos[i].toLowerCase(); + '-detail.html">' + productos[i] + '</a>';
                 }
 
             } else {

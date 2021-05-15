@@ -254,7 +254,7 @@ const server = http.createServer((req, res) => {
 
             //-- Si el producto comienza por lo indicado en el parametro
             //-- meter este producto en el array de resultados
-            if (prodU.startsWith(param1)) {
+            if (prodU.includes(param1)) {
                 result.push(prod);
             }
 
