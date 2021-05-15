@@ -34,12 +34,7 @@ caja.oninput = () => {
                 for (let i = 0; i < productos.length; i++) {
 
                     //-- Añadir cada producto al párrafo de visualización
-                    display1.innerHTML += productos[i];
-
-                    //-- Separamos los productos por ',''
-                    if (i < productos.length - 1) {
-                        display1.innerHTML += ', ';
-                    }
+                    display1.innerHTML += '<div class="search">' + productos[i] + '</div>';
                 }
 
             } else {
