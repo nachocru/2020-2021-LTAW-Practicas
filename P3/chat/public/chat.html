@@ -15,11 +15,22 @@
     <script src="chat-client.js" defer></script>
 </head>
 
+
+
 <body>
-    <h2>Welcome to the chat</h2>
-    <input type="text" placeholder="Escribe aquí los mensajes..." autocomplete="off" id="msg_entry">
-    <h3>Mensajes recibidos</h3>
-    <p id="display"></p>
+    <div class="content">
+
+        <div class="title">
+            <h2>Welcome to the chat</h2>
+        </div>
+
+        <div class="chat">
+            <h3>Mensajes recibidos</h3>
+            <div class="messages" id="display"></div>
+            <input class="input" type="text" placeholder="Escribe aquí los mensajes..." autocomplete="off" id="msg_entry">
+        </div>
+    </div>
+
 </body>
 
 </html>
