@@ -5,7 +5,6 @@ const msg_entry = document.getElementById("msg_entry");
 //-- Crear un websocket. Se establece la conexión con el servidor
 const socket = io();
 
-
 socket.on("message", (msg) => {
     display.innerHTML += '<p style="color:blue">' + msg + '</p>';
 });

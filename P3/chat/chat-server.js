@@ -4,6 +4,8 @@ const http = require('http');
 const express = require('express');
 const colors = require('colors');
 
+var users = 0;
+
 const PUERTO = 9002;
 
 //-- Crear una nueva aplciacion web
@@ -32,19 +34,43 @@ app.use(express.static('public'));
 //-- Evento: Nueva conexion recibida
 io.on('connect', (socket) => {
 
-    console.log('** NUEVA CONEXIÓN **'.yellow);
+    users += 1;
 
+    console.log('** NUEVA CONEXIÓN **'.yellow);
+    socket.send('Bienvenid@ al chat de Nacho :)');
     //-- Evento de desconexión
     socket.on('disconnect', function() {
+        users -= 1;
         console.log('** CONEXIÓN TERMINADA **'.yellow);
+        io.send('Usuario desconectado');
     });
 
     //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
     socket.on("message", (msg) => {
-        console.log("Mensaje Recibido!: " + msg.blue);
+        if (msg.startsWith('/')) {
+            switch (msg) {
+                case '/help':
+                    console.log('estamos en help')
+                    break;
+                case '/list':
+                    socket.send('Usuarios conectados: ' + users);
+                    break;
+                case '/hello':
+                    socket.send('Hola! Espero que estés teniendo una agradable conversación!');
+                    break;
+                case '/date':
+                    socket.send('Hoy es lunes');
+                    break;
+                default:
+                    console.log('default');
+                    break;
+            }
+        } else {
+            console.log("Mensaje Recibido!: " + msg.blue);
+            //-- Reenviarlo a todos los clientes conectados
+            io.send(msg);
+        }
 
-        //-- Reenviarlo a todos los clientes conectados
-        io.send(msg);
     });
 
 });
