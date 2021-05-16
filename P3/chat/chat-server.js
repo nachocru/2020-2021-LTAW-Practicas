@@ -59,7 +59,14 @@ io.on('connect', (socket) => {
                     socket.send('Hola! Espero que estés teniendo una agradable conversación!');
                     break;
                 case '/date':
-                    socket.send('Hoy es lunes');
+                    var currentdate = new Date();
+                    var datetime = "Hoy es " + currentdate.getDate() + "/" +
+                        (currentdate.getMonth() + 1) + "/" +
+                        currentdate.getFullYear() + " y son las " +
+                        currentdate.getHours() + ":" +
+                        currentdate.getMinutes() + ":" +
+                        currentdate.getSeconds();
+                    socket.send(datetime);
                     break;
                 default:
                     console.log('default');
