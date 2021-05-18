@@ -15,7 +15,13 @@ electron.app.on('ready', () => {
     //-- Crear la ventana principal de nuestra aplicación
     win = new electron.BrowserWindow({
         width: 600, //-- Anchura 
-        height: 400 //-- Altura
+        height: 400, //-- Altura
+
+        //-- Permitir que la ventana tenga ACCESO AL SISTEMA
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
     });
 
     //-- En la parte superior se nos ha creado el menu
