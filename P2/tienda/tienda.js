@@ -44,6 +44,11 @@ tienda["users"].forEach((element, index) => {
     users_names.push(element["name"])
 });
 
+var users_passwords = []; // Obtener del fichero json las contraseñas de usuarios
+tienda["users"].forEach((element, index) => {
+    users_passwords.push(element["password"])
+});
+
 
 //-- Función que obtiene la cookie de usuario
 function get_user(req) {
@@ -163,7 +168,7 @@ const server = http.createServer((req, res) => {
         //-- Comprobamos si el nombre coincide con el guardado en base de datos
         let userExist = false;
         for (i = 0; i < users_names.length; i++) {
-            if (name == users_names[i]) {
+            if (name == users_names[i] && password == users_passwords[i]) {
                 userExist = true
             }
         }

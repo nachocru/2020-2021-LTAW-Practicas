@@ -1,10 +1,11 @@
 {
     "users": [{
             "name": "nachocru",
+            "password": "nachocru",
             "real_name": "Nacho",
             "email": "nachocruz@gmail.com"
         },
-        { "name": "root", "real_name": "Root", "email": "root@gmail.com" }
+        { "name": "root", "password": "root", "real_name": "Root", "email": "root@gmail.com" }
     ],
     "products": [{
             "name": "Zombicide",
