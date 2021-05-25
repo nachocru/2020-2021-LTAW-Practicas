@@ -12,6 +12,8 @@ const server = http.createServer((req, res) => {
     let page = '' //-- Página que queremos cargar
     if (myURL.pathname == "/") { //-- Cuando lanzamos nuestra página web
         page = './home.html'
+    } else if (myURL.pathname == "/ls") {
+        page = './ls.html'
     } else { // -- En cualquier otro caso
         page = '.' + myURL.pathname;
     }
