@@ -27,12 +27,13 @@ const server = http.createServer((req, res) => {
         let content_type = "text/html";
 
         if (err) {
-            console.log("Error!!")
-            console.log(err.message);
-            code = 404;
-            code_msg = "404 Not Found"
-            res.writeHead(code, { 'Content-Type': 'text/html' });
-            return res.end(code_msg);
+            console.log('ha habido error')
+            var HOME_HTML = fs.readFileSync('./error.html', 'utf-8');
+            res.statusCode = 404;
+            res.statusMessage = "Ha habido un error";
+            res.setHeader('Content-Type', "text/html");
+            res.write(HOME_HTML);
+            return res.end();
         }
         switch (content) {
             case 'html':
