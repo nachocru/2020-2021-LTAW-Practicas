@@ -181,7 +181,7 @@ const server = http.createServer((req, res) => {
         }
     } else if (myURL.pathname == "/anadir") { // Añadir producto al carrito
         if (user) { // Solo se puede añadir si hay un usuario registrado
-            if (carrito) {
+            if (carrito && carrito != 'empty') {
                 res.setHeader('Set-Cookie', "carrito=" + carrito + ':' + product);
             } else {
                 res.setHeader('Set-Cookie', "carrito=" + product);
@@ -230,7 +230,8 @@ const server = http.createServer((req, res) => {
 
         //-- Guardarla en el fichero destino
         fs.writeFileSync(FICHERO_JSON, myJSON);
-        page = './home.html'
+        res.setHeader('Set-Cookie', "carrito=empty");
+        page = './shop_finish.html'
 
 
     } else if (myURL.pathname == "/") { //-- Cuando lanzamos nuestra página web
