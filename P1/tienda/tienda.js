@@ -1,7 +1,7 @@
 //-- Dependencias 
 const http = require('http');
 const fs = require('fs');
-const PORT = 9000
+const PORT = 9000 // Puerto donde escuchamos 
 
 const server = http.createServer((req, res) => {
 
@@ -12,7 +12,7 @@ const server = http.createServer((req, res) => {
     let page = '' //-- Página que queremos cargar
     if (myURL.pathname == "/") { //-- Cuando lanzamos nuestra página web
         page = './home.html'
-    } else if (myURL.pathname == "/ls") {
+    } else if (myURL.pathname == "/ls") { // Listado con todos los ficheros de la practica
         page = './ls.html'
     } else { // -- En cualquier otro caso
         page = '.' + myURL.pathname;
@@ -28,7 +28,7 @@ const server = http.createServer((req, res) => {
         let code_msg = "OK";
         let content_type = "text/html";
 
-        if (err) {
+        if (err) { // Mostramos la página de error
             console.log('ha habido error')
             var HOME_HTML = fs.readFileSync('./error.html', 'utf-8');
             res.statusCode = 404;
