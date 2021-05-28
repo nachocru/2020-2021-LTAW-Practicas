@@ -5,7 +5,12 @@
             "real_name": "Nacho",
             "email": "nachocruz@gmail.com"
         },
-        { "name": "root", "password": "root", "real_name": "Root", "email": "root@gmail.com" }
+        {
+            "name": "root",
+            "password": "root",
+            "real_name": "Root",
+            "email": "root@gmail.com"
+        }
     ],
     "products": [{
             "name": "Zombicide",
@@ -23,7 +28,7 @@
             "photo": "product_images/catan.jpg",
             "alternative_photo": "product_images/catan-back.jpeg",
             "link": "catan-detail.html",
-            "stock": 5
+            "stock": 4
         },
         {
             "name": "Virus",
@@ -41,7 +46,7 @@
             "photo": "product_images/risk.jpg",
             "alternative_photo": "product_images/risk-back.jpg",
             "link": "risk-detail.html",
-            "stock": 5
+            "stock": 4
         },
         {
             "name": "Exploding Kittens",
@@ -50,7 +55,7 @@
             "photo": "product_images/exploding.jpg",
             "alternative_photo": "product_images/explodding-back.png",
             "link": "exploding-detail.html",
-            "stock": 5
+            "stock": 7
         },
         {
             "name": "Harry Potter juego de mesa",
@@ -59,7 +64,7 @@
             "photo": "product_images/harry.jpg",
             "alternative_photo": "product_images/harry-back.png",
             "link": "harry-details.html",
-            "stock": 5
+            "stock": 6
         }
     ],
     "orders": [{

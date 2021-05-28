@@ -4,8 +4,8 @@ const fs = require('fs');
 const PORT = 9000
 
 // Vamos a sacar los nombres de los productos
+
 const FICHERO_JSON = "tienda.json"
-    //-- Leer el fichero JSON
 const tienda_json = fs.readFileSync(FICHERO_JSON);
 const tienda = JSON.parse(tienda_json);
 
@@ -17,6 +17,11 @@ tienda["products"].forEach((element, index) => {
 var product_prices = []; // Obtener del fichero json los precios de los productos
 tienda["products"].forEach((element, index) => {
     product_prices.push(element["price"])
+});
+
+var product_stocks = []; // Obtener del fichero json los stocks de los productos
+tienda["products"].forEach((element, index) => {
+    product_stocks.push(element["stock"])
 });
 
 var product_photo = []; // Obtener del fichero json la foto principal de los productos
@@ -38,6 +43,21 @@ var product_links = []; // Obtener del fichero json los links hacia los producto
 tienda["products"].forEach((element, index) => {
     product_links.push(element["link"])
 });
+
+var product_carrito = []; // Para hacer un recuento de los productos comprados
+tienda["products"].forEach((element, index) => {
+    product_carrito.push({
+        name: product_names[index],
+        quantity: 0
+    })
+});
+
+function resetCarrito() {
+    product_carrito.forEach((element, index) => {
+        element.quantity = 0;
+    });
+}
+
 
 var users_names = []; // Obtener del fichero json los nombres de usuarios
 tienda["users"].forEach((element, index) => {
@@ -130,13 +150,20 @@ function setProductData(name) {
     let content;
     let indice = product_names.indexOf(name);
 
+
     // Reemplazamos todos los datos
     content = PRODUCT_DETAIL_HTML.replace("PRODUCT_NAME", name);
     content = content.replace("PRODUCT_TITLE", name);
     content = content.replace("PRICE", product_prices[indice]);
+    content = content.replace("STOCK", product_stocks[indice]);
     content = content.replace("PHOTO", product_photo[indice]);
     content = content.replace("ALTERNATIVE_PHOTO", product_alternative_photo[indice]);
     content = content.replace("DESCRIPTION", product_descriptions[indice]);
+    if (product_stocks[indice] != 0) {
+        content = content.replace("BUTTON", `<button class="buy_button"><a style="text-decoration:none; color:rgb(53, 53, 53)" href="/anadir">Añadir al carrito</a></button>`);
+    } else {
+        content = content.replace("BUTTON", 'No hay stock de este producto');
+    }
 
     return content;
 }
@@ -180,6 +207,16 @@ const server = http.createServer((req, res) => {
             page = './login-fail.html'
         }
     } else if (myURL.pathname == "/anadir") { // Añadir producto al carrito
+        tienda["products"].forEach((element, index) => {
+            if (element['name'] == product) {
+                tienda["products"][index].stock = tienda["products"][index].stock - 1;
+                product_stocks[index] -= 1;
+                let myJSON = JSON.stringify(tienda);
+                //-- Guardarla en el fichero destino
+                fs.writeFileSync(FICHERO_JSON, myJSON);
+            }
+        });
+        tienda['products']
         if (user) { // Solo se puede añadir si hay un usuario registrado
             if (carrito && carrito != 'empty') {
                 res.setHeader('Set-Cookie', "carrito=" + carrito + ':' + product);
@@ -208,17 +245,18 @@ const server = http.createServer((req, res) => {
         console.log("Número de tarjeta: " + card);
 
         if (carrito) {
-            productos = get_products(carrito)
-            productos.forEach((element, index) => {
-                tienda["orders"].push({
-                    "user": user,
-                    "direction": direction,
-                    "card": card,
-                    "products": [{
-                        "name": element,
-                        "quantity": 1
-                    }]
-                })
+            product_carrito.forEach((element, index) => {
+                if (element.quantity != 0) {
+                    tienda["orders"].push({
+                        "user": user,
+                        "direction": direction,
+                        "card": card,
+                        "products": [{
+                            "name": element.name,
+                            "quantity": element.quantity
+                        }]
+                    })
+                }
             })
         }
         //-- Añadimos esta info al fichero json
@@ -236,9 +274,6 @@ const server = http.createServer((req, res) => {
 
     } else if (myURL.pathname == "/") { //-- Cuando lanzamos nuestra página web
         page = './home.html'
-    } else if (myURL.pathname == "/product_details.html/zombicide-detail.html") {
-        res.setHeader('Set-Cookie', "product=" + "Zombicide", 'path=/');
-        page = '.' + myURL.pathname;
     } else if (myURL.pathname == "/productos") {
 
         console.log("Peticion de Productos!")
@@ -332,10 +367,20 @@ const server = http.createServer((req, res) => {
         let content_type = "text/html";
         let content = CART_HTML;
         if (carrito) {
+            resetCarrito();
             productos = get_products(carrito)
-            let linea = ''
             productos.forEach((element, index) => {
-                linea = linea + '<br>' + element + '  ---------------->  x1' + '<br>'
+                product_carrito.forEach((element2, index2) => {
+                    if (element == element2.name) {
+                        product_carrito[index2].quantity += 1;
+                    }
+                })
+            })
+            let linea = ''
+            product_carrito.forEach((element, index) => {
+                if (element.quantity != 0) {
+                    linea = linea + '<br>' + element.name + '  ---------------->  ' + element.quantity + '<br>'
+                }
             })
             content = CART_HTML.replace("No hay productos en el carrito.", linea);
             CART_HTML = content;
