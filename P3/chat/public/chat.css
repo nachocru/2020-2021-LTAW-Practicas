@@ -30,8 +30,16 @@ div.messages {
     background-color: lightblue;
     height: 350px;
     overflow-y: scroll;
+    padding-top: 20px;
 }
 
 .input {
     margin-top: 20px;
+}
+
+.messages {
+    text-align: left;
+    margin-left: 16px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
