@@ -1,0 +1,48 @@
+body {
+    background-image: url("background.png");
+    background-size: cover;
+}
+
+.content {
+    background-color: burlywood;
+    height: 100%;
+    width: 80%;
+    margin: auto;
+    padding-bottom: 10px;
+    border-radius: 20px;
+}
+
+.title {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.chat {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    background-color: lightslategray;
+}
+
+div.messages {
+    background-color: lightblue;
+    height: 350px;
+    overflow-y: scroll;
+    padding-top: 20px;
+    border-radius: 20px;
+}
+
+.input {
+    margin-top: 20px;
+}
+
+.messages {
+    text-align: left;
+    margin-left: 16px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-family: monospace;
+}

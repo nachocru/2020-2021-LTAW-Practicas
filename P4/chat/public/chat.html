@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="chat.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+
+    <!-- Cargar la biblioteca Socket.IO. Nos la debe entregar el servidor -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Cliente que usa los Sockets.io-->
+    <script src="chat-client.js" defer></script>
+</head>
+
+
+
+<body>
+    <div class="content">
+
+        <div class="title">
+            <h2>Welcome to the chat</h2>
+        </div>
+
+        <div class="chat">
+            <h3>Mensajes recibidos</h3>
+            <div class="messages" id="display"></div>
+            <input class="input" type="text" placeholder="Escribe aquí los mensajes..." autocomplete="off" id="msg_entry">
+            <button>Enviar</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
