@@ -20,23 +20,32 @@
 </head>
 
 <body>
-    <h1>INTERFAZ GRÁFICA</h1>
-    <img src="logo-urjc.png" alt="Logo-URJC" width=150px>
+    <h1>HOME CHAT (Server)</h1>
+    <div class="container">
+        <div class="info">
+            <hr>
+            <h2>Información:</h2>
+            <ul>
+                <li>Arquitectura: <span id="info1" class="blue"></span> </li>
+                <li>Plataforma: <span id="info2" class="blue"></span></li>
+                <li>Diretorio: <span id="info3" class="blue"></span></li>
+            </ul>
+            <hr>
+        </div>
 
-    <hr>
-    <h2>Información:</h2>
-    <ul>
-        <li>Arquitectura: <span id="info1" class="blue"></span> </li>
-        <li>Plataforma: <span id="info2" class="blue"></span></li>
-        <li>Diretorio: <span id="info3" class="blue"></span></li>
-    </ul>
+        <div class="info">
+            <hr>
+            <p>Mensajes enviados desde el proceso main:</p>
+            <p>Print: <span id='print' class="red"></span> </p>
+            <p> <input type="button" value="Test" id="btn_test"> </p>
+            <p>Display:</p>
+            <p id="display"></p>
+            <hr>
+        </div>
 
-    <hr>
-    <p>Mensajes enviados desde el proceso main:</p>
-    <p>Print: <span id='print' class="red"></span> </p>
-    <p> <input type="button" value="Test" id="btn_test"> </p>
-    <p>Display:</p>
-    <p id="display"></p>
+    </div>
+
+
 </body>
 
 </html>

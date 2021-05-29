@@ -1,9 +1,15 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
 h1 {
     width: 93%;
     padding: 20px;
-    background-color: lightgreen;
+    background-color: aquamarine;
     border-radius: 10px;
     text-align: center;
+    border: solid;
 }
 
 .blue {
@@ -17,4 +23,11 @@ h1 {
 #display {
     border: 2px solid lightblue;
     padding: 10px;
+}
+
+.info {
+    width: 260px;
+    border: solid;
+    padding: 10px;
+    border-radius: 10px;
 }
