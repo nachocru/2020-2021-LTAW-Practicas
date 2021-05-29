@@ -5,9 +5,9 @@ const express = require('express');
 const colors = require('colors');
 const fs = require('fs');
 
-var users = 0;
+var users = 0; // Contador con el número de usuarios conectados al chat
 
-const PUERTO = 9000;
+const PUERTO = 9000; // Puerto donde escuchamos
 
 //-- Crear una nueva aplciacion web
 const app = express();
@@ -19,15 +19,14 @@ const server = http.Server(app);
 const io = socket(server);
 
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
-//-- Definir el punto de entrada principal de mi aplicación web
+//-- Página de registro de acceso al chat
 app.get('/', (req, res) => {
     res.send(fs.readFileSync('./public/home.html', 'utf-8'));
-    // res.send('Bienvenido a mi aplicación Web!!!' + '<p><a href="/chat.html">Test</a></p>');
 });
 
+// -- Acceso al chat
 app.get('/procesar', (req, res) => {
     res.send(fs.readFileSync('./public/chat.html', 'utf-8'));
-    // res.send('Bienvenido a mi aplicación Web!!!' + '<p><a href="/chat.html">Test</a></p>');
 });
 
 //-- Esto es necesario para que el servidor le envíe al cliente la
@@ -53,12 +52,13 @@ io.on('connect', (socket) => {
         io.send('Usuario desconectado');
     });
 
-    //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
+    //-- Mensaje recibido
     socket.on("message", (msg) => {
+        // -- Comprobamos si es un comando
         if (msg.split(': ')[1].startsWith('/')) {
             switch (msg.split(': ')[1]) {
                 case '/help':
-                    console.log('estamos en help')
+                    socket.send('Estos son los comandos disponibles en la sala de chat:<br> /help: Donde se encuentra ahora, se muestra un menú con las posibles opciones del chat.<br> /list: Se mostrará el número de usuarios conectados al chat.<br> /hello: El chat le devolverá el saludo.<br> /date: Se mostrará la fecha actual.' + users);
                     break;
                 case '/list':
                     socket.send('Usuarios conectados: ' + users);
@@ -77,7 +77,7 @@ io.on('connect', (socket) => {
                     socket.send(datetime);
                     break;
                 default:
-                    console.log('default');
+                    // No hacer nada, tampoco se reenvía el mensaje.
                     break;
             }
         } else {
@@ -91,6 +91,5 @@ io.on('connect', (socket) => {
 });
 
 //-- Lanzar el servidor HTTP
-//-- ¡Que empiecen los juegos de los WebSockets!
 server.listen(PUERTO);
 console.log("Escuchando en puerto: " + PUERTO);
