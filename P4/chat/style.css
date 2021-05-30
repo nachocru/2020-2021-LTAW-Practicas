@@ -20,9 +20,12 @@ h1 {
     color: red;
 }
 
-#display {
-    border: 2px solid lightblue;
-    padding: 10px;
+.messages {
+    text-align: left;
+    margin-left: 16px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-family: monospace;
 }
 
 .info {
@@ -30,4 +33,13 @@ h1 {
     border: solid;
     padding: 10px;
     border-radius: 10px;
+}
+
+.messages-container {
+    overflow: scroll;
+    height: 400px;
+}
+
+.users {
+    text-align: center;
 }

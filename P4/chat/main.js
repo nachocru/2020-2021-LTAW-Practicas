@@ -99,6 +99,7 @@ io.on('connect', (socket) => {
 
     console.log('** NUEVA CONEXIÓN **'.yellow);
     io.send('Nuevo usuario conectado');
+    win.webContents.send('message', 'Nuevo usuario conectado');
     socket.send('Bienvenid@ al chat de Nacho :)');
     //-- Evento de desconexión
     socket.on('disconnect', function() {
@@ -107,6 +108,7 @@ io.on('connect', (socket) => {
         win.webContents.send('users', users);
         console.log('** CONEXIÓN TERMINADA **'.yellow);
         io.send('Usuario desconectado');
+        win.webContents.send('message', 'Usuario desconectado');
     });
 
     //-- Mensaje recibido
@@ -141,6 +143,7 @@ io.on('connect', (socket) => {
             console.log("Mensaje Recibido!: " + msg.blue);
             //-- Reenviarlo a todos los clientes conectados
             io.send(msg);
+            win.webContents.send('message', msg);
         }
 
     });

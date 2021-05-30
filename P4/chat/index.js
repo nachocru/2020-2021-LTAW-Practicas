@@ -20,7 +20,6 @@ info3.textContent = process.cwd();
 
 
 btn_test.onclick = () => {
-    display.innerHTML += "TEST! ";
     console.log("Botón apretado!");
 
     //-- Enviar mensaje al proceso principal
@@ -36,4 +35,9 @@ electron.ipcRenderer.on('print', (event, message) => {
 electron.ipcRenderer.on('users', (event, message) => {
     console.log("Recibido: " + message);
     info8.textContent = message;
+});
+
+electron.ipcRenderer.on('message', (event, message) => {
+    console.log("Recibido: " + message);
+    display.innerHTML += '<p class="messages">' + '> ' + message + '</p>';
 });
