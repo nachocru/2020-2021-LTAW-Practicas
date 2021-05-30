@@ -3,6 +3,7 @@ const socket = require('socket.io');
 const http = require('http');
 const express = require('express');
 const colors = require('colors');
+const ip = require('ip');
 const fs = require('fs');
 
 let users = 0; // Contador con el número de usuarios conectados al chat
@@ -40,6 +41,7 @@ app.use(express.static('public'));
 const electron = require('electron');
 
 console.log("Arrancando electron...");
+const url = 'http://' + ip.address() + ':' + PUERTO + '/public/home.html';
 
 //-- Variable para acceder a la ventana principal
 //-- Se pone aquí para que sea global al módulo principal
@@ -61,31 +63,11 @@ electron.app.on('ready', () => {
             contextIsolation: false
         }
     });
-    console.log(win)
-
-    //-- En la parte superior se nos ha creado el menu
-    //-- por defecto
-    //-- Si lo queremos quitar, hay que añadir esta línea
-    //win.setMenuBarVisibility(false)
-
-    //-- Cargar contenido web en la ventana
-    //-- La ventana es en realidad.... ¡un navegador!
-    //win.loadURL('https://www.urjc.es/etsit');
 
     //-- Cargar interfaz gráfica en HTML
     win.loadFile("index.html");
-
-    //-- Esperar a que la página se cargue y se muestre
-    //-- y luego enviar el mensaje al proceso de renderizado para que 
-    //-- lo saque por la interfaz gráfica
-    win.on('ready-to-show', () => {
-        win.webContents.send('print', "MENSAJE ENVIADO DESDE PROCESO MAIN");
-    });
-
-    //-- Enviar un mensaje al proceso de renderizado para que lo saque
-    //-- por la interfaz gráfica
-    win.webContents.send('print', "MENSAJE ENVIADO DESDE PROCESO MAIN");
-
+    win.webContents.send('users', users);
+    win.webContents.send('url', url);
 });
 
 //------------------- GESTION SOCKETS IO
@@ -93,8 +75,6 @@ electron.app.on('ready', () => {
 io.on('connect', (socket) => {
 
     users += 1;
-    console.log('USUARIOS: ' + users)
-    console.log(win)
     win.webContents.send('users', users);
 
     console.log('** NUEVA CONEXIÓN **'.yellow);
