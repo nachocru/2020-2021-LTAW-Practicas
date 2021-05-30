@@ -8,6 +8,7 @@ const display = document.getElementById("display");
 const info1 = document.getElementById("info1");
 const info2 = document.getElementById("info2");
 const info3 = document.getElementById("info3");
+const info8 = document.getElementById("info8");
 const print = document.getElementById("print");
 
 //-- Acceder a la API de node para obtener la info
@@ -30,4 +31,9 @@ btn_test.onclick = () => {
 electron.ipcRenderer.on('print', (event, message) => {
     console.log("Recibido: " + message);
     print.textContent = message;
+});
+
+electron.ipcRenderer.on('users', (event, message) => {
+    console.log("Recibido: " + message);
+    info8.textContent = message;
 });
