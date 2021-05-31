@@ -1,6 +1,6 @@
 {
-    "name": "mi-electron-app",
-    "description": "Estas es mi primera aplicación de escritorio en Electron",
+    "name": "chat",
+    "description": "Aplicación chat con electron",
     "version": "0.1.0",
     "main": "main.js",
     "author": {
