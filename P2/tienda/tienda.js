@@ -207,17 +207,16 @@ const server = http.createServer((req, res) => {
             page = './login-fail.html'
         }
     } else if (myURL.pathname == "/anadir") { // Añadir producto al carrito
-        tienda["products"].forEach((element, index) => {
-            if (element['name'] == product) {
-                tienda["products"][index].stock = tienda["products"][index].stock - 1;
-                product_stocks[index] -= 1;
-                let myJSON = JSON.stringify(tienda);
-                //-- Guardarla en el fichero destino
-                fs.writeFileSync(FICHERO_JSON, myJSON);
-            }
-        });
-        tienda['products']
         if (user) { // Solo se puede añadir si hay un usuario registrado
+            tienda["products"].forEach((element, index) => {
+                if (element['name'] == product) {
+                    tienda["products"][index].stock = tienda["products"][index].stock - 1;
+                    product_stocks[index] -= 1;
+                    let myJSON = JSON.stringify(tienda);
+                    //-- Guardarla en el fichero destino
+                    fs.writeFileSync(FICHERO_JSON, myJSON);
+                }
+            });
             if (carrito && carrito != 'empty') {
                 res.setHeader('Set-Cookie', "carrito=" + carrito + ':' + product);
             } else {
